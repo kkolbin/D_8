@@ -129,7 +129,9 @@ class NewsCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('news:news_list')
 
     def form_valid(self, form):
+        print(form.instance.post_type)
         form.instance.author = self.request.user
+        form.instance.post_type = 'news'
         return super().form_valid(form)
 
     def test_func(self):
