@@ -1,0 +1,25 @@
+{% extends 'articles/default_article.html' %}
+{% load censor %}
+
+{% block title %}Список статей{% endblock %}
+
+{% block content %}
+    <a href="{% url 'articles:article_create' %}">Добавить статью</a>
+    <h2>Список статей</h2>
+    <p>Количество статей: {{ article.paginator.count }}</p>
+    <ul>
+        {% for post in article %}
+            <li>
+                <h3><a href="{% url 'articles:article_detail' post.id %}">{{ post.title|censor }}</a></h3>
+                <p>{{ post.created_at|date:"d.m.Y" }}</p>
+                <p>Рейтинг: {{ post.rating }}</p>
+                <p>Категории:
+                    {% for category in post.categories.all %}
+                        <span>{{ category.name }}</span>
+                    {% endfor %}
+                </p>
+                <p>{{ post.content|censor|truncatechars:20 }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

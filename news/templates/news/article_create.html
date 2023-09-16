@@ -1,0 +1,27 @@
+{% extends 'articles/default_article.html' %}
+
+{% load static %}
+{% load censor %}
+{% load censor custom_tags %}
+
+{% block title %}Создание статьи{% endblock %}
+
+{% block content %}
+    <h2>Создание статьи</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Создать статью</button>
+    </form>
+
+    {% if user|user_belongs_to_group:'common' %}
+    <p>Создавать, редактировать и удалять статьи/новости могут только авторы.</p>
+    <a href="{% url 'news:become_author' %}">Стать автором</a>
+    {% endif %}
+
+    {% if is_common_user %}
+    <p>Создавать, редактировать и удалять статьи/новости могут только авторы.</p>
+    <a href="{% url 'news:become_author' %}">Стать автором</a>
+    {% endif %}
+
+{% endblock %}

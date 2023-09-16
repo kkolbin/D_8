@@ -1,0 +1,30 @@
+{% load static %}
+{% load censor %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}News Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>News Portal</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'news:news_list' %}">Список новостей</a></li>
+            </ul>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2023 News Portal. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
